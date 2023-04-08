@@ -4,12 +4,11 @@ from core.classes import Cog_Extension
 from core import check
 import json
 import os, random
+import requests as req
 
 with open('setting.json', 'r', encoding='utf8') as jfile:
 	jdata = json.load(jfile)
-# 關鍵字@對應使用者
-with open('keywords.json', 'r', encoding='utf8') as kfile:
-	kdatas = json.load(kfile)
+
 
 class Main(Cog_Extension):
 
@@ -45,6 +44,25 @@ class Main(Cog_Extension):
 			return
 		else: await ctx.message.delete()
 		await ctx.send(content)
+
+
+	# @commands.command()
+	# async def add_keyword(self, ctx, keyword: str, *, content: str):
+	# 	response =  req.get('https://api.jsonstorage.net/v1/json/d716c689-a7ed-465e-9f3f-3183b8197095/7a91391e-f9bc-4a58-be68-086bc5ddfa91')
+	# 	# print(response.json)
+	# 	'''新增關鍵字'''
+	# 	if keyword in response.json():
+	# 		await ctx.send(f'{keyword} 已存在 !')
+	# 	else:
+	# 		# use try except to avoid error
+	# 		try:
+	# 			response_update = req.put('https://api.jsonstorage.net/v1/json/d716c689-a7ed-465e-9f3f-3183b8197095/7a91391e-f9bc-4a58-be68-086bc5ddfa91?apiKey=df8f797d-8230-4cfd-9780-b448e3e27679', 
+	# 		      json={keyword: content}
+	# 			  )
+	# 			await ctx.send(f'{keyword}-{content}新增成功 !')
+	# 		except:
+	# 			await ctx.send(f'{keyword}-{content}新增失敗 !')
+			
 
 
 	@commands.command()
