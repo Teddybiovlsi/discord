@@ -78,7 +78,6 @@ class Main(Cog_Extension):
         embed.set_footer(text="Made with ❤")
         await ctx.send(embed=embed)
 
-
     @commands.command()
     async def show_keyword(self, ctx):
         '''顯示關鍵字'''
@@ -86,7 +85,7 @@ class Main(Cog_Extension):
         for keyword in keywordsdata:
             keyword_list += f"{keyword} : {keywordsdata[keyword]} \n"
         embed = discord.Embed(title="關鍵字列表 Keyword List",
-                                description=keyword_list, color=0x28ddb0)
+                              description=keyword_list, color=0x28ddb0)
         await ctx.send(embed=embed)
 
     # 顯示命令列表
@@ -97,9 +96,22 @@ class Main(Cog_Extension):
         for command in self.bot.commands:
             command_list += f"{command} : {command.help} \n"
         embed = discord.Embed(title="指令列表 Command List",
-                                description=command_list, color=0x28ddb0)
+                              description=command_list, color=0x28ddb0)
         await ctx.send(embed=embed)
-        
+
+    @commands.command()
+    async def vote(self, ctx, question: str, *options):
+        '''投票'''
+        reactions = ['👍', '👎']
+        message = f"{question}\n"
+        for i, option in enumerate(options):
+            message += f"{i+1}. {option}\n"
+        message += "\n請以 👍 或 👎 進行投票."
+
+        poll = await ctx.send(message)
+        for reaction in reactions:
+            await poll.add_reaction(reaction)
+
 
 def setup(bot):
     bot.add_cog(Main(bot))
