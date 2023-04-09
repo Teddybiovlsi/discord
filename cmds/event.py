@@ -27,14 +27,16 @@ class Event(Cog_Extension):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         '''成員加入觸發事件'''
-        channel = self.bot.get_channel(int(jdata['Welcome_Channel']))
-        await channel.send(f'{member.mention} 歡迎加入!')
+        # 若頻道名稱為 '公會門口'，則發送歡迎訊息
+        if member.guild.system_channel.name == '公會門口':
+            await member.guild.system_channel.send(f'歡迎{member.mention} 加入，加入後請記得更改伺服器名稱為楓谷ID，管理員看到就會更改你的身分組囉!')
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
         '''成員離開觸發事件'''
-        channel = self.bot.get_channel(int(jdata['Leave_Channel']))
-        await channel.send(f'{member.mention} 離開了!')
+        print(member)
+        # channel = self.bot.get_channel(int(jdata['Leave_Channel']))
+        # await channel.send(f'{member.mention} 離開了!')
 
     @commands.Cog.listener()
     async def on_message(self, msg):
