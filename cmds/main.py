@@ -112,6 +112,14 @@ class Main(Cog_Extension):
         for reaction in reactions:
             await poll.add_reaction(reaction)
 
+# 使用!roll 即可觸發1-100的隨機數
+    @commands.command()
+    async def roll(self, ctx, number: int = 100):
+        '''隨機數'''
+        number = random.randint(1, number)
+        embed = discord.Embed(title=f"{ctx.author.name} rolls {number}",
+                              description="Made Bot Easier !", color=0xddddb0)
+        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Main(bot))
